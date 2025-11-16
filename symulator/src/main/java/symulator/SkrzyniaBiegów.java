@@ -6,18 +6,28 @@ public class SkrzyniaBiegów extends Komponent{
     private int aktualnyBieg;
     private int aktualnePrzelozenie;
 
+    public SkrzyniaBiegów(String producent, String model, int iloscBiegow){
+        super(producent, model);
+        this.iloscBiegow = iloscBiegow;
+        this.aktualnyBieg = 0;
+    }
     public void zwiekszBieg(){
-        if (aktualnyBieg >= iloscBiegow){
-            break;
-        }else {
+        if (aktualnyBieg < iloscBiegow){
             aktualnyBieg++;
+            System.out.println("teraz jest bieg: " + aktualnyBieg);
+        }else {
+            System.out.println("nie da sie wyzszego biegu :( ");
         }
     }
     public void zmniejszBieg(){
-        if(aktualnyBieg <= 0){
-            break;
-        }else{
+        if(aktualnyBieg > 0){
             aktualnyBieg--;
+            System.out.println("teraz jest bieg: " + aktualnyBieg);
+        } else {
+            System.out.println("nie da sie nizszego biegu :/");
         }
+    }
+    public void setAktualnyBieg(int bieg){
+        this.aktualnyBieg = bieg;
     }
 }

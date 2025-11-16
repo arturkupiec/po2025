@@ -2,18 +2,21 @@ package symulator;
 
 public class Sprzęgło extends Komponent{
 
+    private boolean stanSprzegla;
 
-    public Sprzęgło(String producent, String model, int stanSprzegla) {
+    public Sprzęgło(String producent, String model, boolean stanSprzegla) {
         super(producent, model);
-        this.stanSprzegla = stanSprzegla;
+        this.stanSprzegla = false;
     }
 
-    private int stanSprzegla;
     public void wcisnij(){
-        stanSprzegla = 1;
+        stanSprzegla = true;
+        System.out.println("sprzeglo wcisniete :D");
     }
     public void zwolnij(){
-        stanSprzegla = 0;
+        stanSprzegla = false;
+        System.out.println("sprzeglo zwolnione :D");
     }
+    public boolean stanSprzegla(){return stanSprzegla;}
 
 }
