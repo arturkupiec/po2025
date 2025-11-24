@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.samgui.HelloController">
 
     <top>
         <VBox>
@@ -74,7 +74,8 @@
                                 </GridPane>
                                 <HBox spacing="10.0">
                                     <children>
-                                        <Button mnemonicParsing="false" text="Włącz" />
+                                        <Button mnemonicParsing="false" text="Włącz" fx:id="startButton"
+                                        onAction="#onStart"/>
                                         <Button mnemonicParsing="false" text="Wyłącz" />
                                         <Button mnemonicParsing="false" text="Button" />
                                     </children>
@@ -113,7 +114,8 @@
                                 </GridPane>
                                 <HBox spacing="10.0">
                                     <children>
-                                        <Button mnemonicParsing="false" text="Zwiększ bieg" />
+                                        <Button mnemonicParsing="false" text="Zwiększ bieg"  fx:id="upGearButton"
+                                        onAction="#upGear"/>
                                         <Button mnemonicParsing="false" text="Zmniejsz bieg" />
                                     </children>
                                 </HBox>
