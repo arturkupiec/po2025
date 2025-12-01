@@ -30,4 +30,6 @@ public class SkrzyniaBiegow extends Komponent{
     public void setAktualnyBieg(int bieg){
         this.aktualnyBieg = bieg;
     }
+
+    public int getAktualnyBieg(){return this.aktualnyBieg;}
 }

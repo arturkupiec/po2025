@@ -66,7 +66,7 @@
                                         <Label text="Nr rejestracyjny" GridPane.rowIndex="1" />
                                         <Label text="Waga" GridPane.rowIndex="2" />
                                         <Label text="Prędkość" GridPane.rowIndex="3" />
-                                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="0" fx:id="modelTextField" editable="false" />
                                         <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                         <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                         <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
@@ -74,8 +74,7 @@
                                 </GridPane>
                                 <HBox spacing="10.0">
                                     <children>
-                                        <Button mnemonicParsing="false" text="Włącz" fx:id="startButton"
-                                        onAction="#onStart"/>
+                                        <Button fx:id="startButton" mnemonicParsing="false" onAction="#onStart" text="Włącz" />
                                         <Button mnemonicParsing="false" text="Wyłącz" />
                                         <Button mnemonicParsing="false" text="Button" />
                                     </children>
@@ -109,13 +108,12 @@
                                         <TextField GridPane.columnIndex="1" />
                                         <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                         <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" fx:id="biegTextField" editable="false"/>
                                     </children>
                                 </GridPane>
                                 <HBox spacing="10.0">
                                     <children>
-                                        <Button mnemonicParsing="false" text="Zwiększ bieg"  fx:id="upGearButton"
-                                        onAction="#upGear"/>
+                                        <Button fx:id="upGearButton" mnemonicParsing="false" onAction="#upGear" text="Zwiększ bieg" />
                                         <Button mnemonicParsing="false" text="Zmniejsz bieg" />
                                     </children>
                                 </HBox>
@@ -211,7 +209,7 @@
                         <Font name="System Bold" size="12.0" />
                     </font>
                 </Label>
-                <ImageView fx:id="carImageView" fitHeight="315.0" fitWidth="428.0" layoutX="79.0" layoutY="56.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="carImageView" fitHeight="116.0" fitWidth="151.0" layoutX="24.0" layoutY="31.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@car_icon.jpg" />
                     </image>
