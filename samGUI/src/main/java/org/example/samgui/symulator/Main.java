@@ -9,8 +9,9 @@ public class Main {
         Sprzeglo sprzeglo = new Sprzeglo("FSO", "polonez", false);
         Pozycja pozycja = new Pozycja(0, 0);
 
-        Samochod poldek = new Samochod(silnik, skrzynia, sprzeglo, pozycja);
+        Samochod poldek = new Samochod(silnik, skrzynia, sprzeglo, pozycja, "K1 N1GA");
 
+        System.out.println(poldek.getNrRejestracji());
         poldek.wlacz();
         poldek.skrzynia.zwiekszBieg();
         poldek.jedzDo(pozycja, new Pozycja(10, 10));

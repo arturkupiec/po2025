@@ -62,12 +62,12 @@
                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                     </rowConstraints>
                                     <children>
-                                        <Label text="Model" GridPane.rowIndex="0" />
+                                        <Label text="Model" GridPane.rowIndex="0"  />
                                         <Label text="Nr rejestracyjny" GridPane.rowIndex="1" />
                                         <Label text="Waga" GridPane.rowIndex="2" />
                                         <Label text="Prędkość" GridPane.rowIndex="3" />
-                                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="0" fx:id="modelTextField" editable="false" />
-                                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="0" fx:id="modelTextField" editable="false"  />
+                                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id ="nrRejestracjiTextField" editable="fasle" />
                                         <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                         <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                     </children>
@@ -105,16 +105,16 @@
                                         <Label text="Cena" GridPane.rowIndex="1" />
                                         <Label text="Waga" GridPane.rowIndex="2" />
                                         <Label text="Bieg" GridPane.rowIndex="3" />
-                                        <TextField GridPane.columnIndex="1" />
-                                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <TextField GridPane.columnIndex="1" fx:id="nazwaSkrzyniTextField" editable="false"/>
+                                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="cenaSkrzyniTextField" editable="false"/>
+                                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="wagaSkrzyniTextField" editable="false"/>
                                         <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" fx:id="biegTextField" editable="false"/>
                                     </children>
                                 </GridPane>
                                 <HBox spacing="10.0">
                                     <children>
                                         <Button fx:id="upGearButton" mnemonicParsing="false" onAction="#upGear" text="Zwiększ bieg" />
-                                        <Button mnemonicParsing="false" text="Zmniejsz bieg" />
+                                        <Button fx:id="downGearButton" mnemonicParsing="false" onAction="#downGear" text="Zmniejsz bieg" />
                                     </children>
                                 </HBox>
                             </VBox>
@@ -143,16 +143,16 @@
                                         <Label text="Cena" GridPane.rowIndex="1" />
                                         <Label text="Waga" GridPane.rowIndex="2" />
                                         <Label text="Obroty" GridPane.rowIndex="3" />
-                                        <TextField GridPane.columnIndex="1" />
-                                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                        <TextField GridPane.columnIndex="1" fx:id = "nazwaSilnikaTextField" editable="false"/>
+                                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id = "cenaSilnikaTextField" editable="false" />
+                                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id = "wagaSilnikaTextField" editable="false" />
+                                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" fx:id = "obrotySilnikaTextField" editable="false"/>
                                     </children>
                                 </GridPane>
                                 <HBox spacing="10.0">
                                     <children>
-                                        <Button mnemonicParsing="false" text="Dodaj gazu" />
-                                        <Button mnemonicParsing="false" text="Ujmij gazu" />
+                                        <Button mnemonicParsing="false" text="Dodaj gazu" fx:id = "upSpeed" onAction="#upSpeed"/>
+                                        <Button mnemonicParsing="false" text="Ujmij gazu" fx:id = "downSpeed" onAction="#downSpeed"/>
                                     </children>
                                 </HBox>
                             </VBox>
@@ -181,16 +181,16 @@
                                         <Label text="Cena" GridPane.rowIndex="1" />
                                         <Label text="Waga" GridPane.rowIndex="2" />
                                         <Label text="Stan" GridPane.rowIndex="3" />
-                                        <TextField GridPane.columnIndex="1" />
-                                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                        <TextField GridPane.columnIndex="1" fx:id = "nazwaSprzeglaTextField" editable="false"/>
+                                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id = "cenaSprzeglaTextField" editable="false"/>
+                                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id = "wagaSprzeglaTextField" editable="false"/>
+                                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" fx:id = "stanSprzeglaTextField" editable="false"/>
                                     </children>
                                 </GridPane>
                                 <HBox spacing="10.0">
                                     <children>
-                                        <Button mnemonicParsing="false" text="Naciśnij" />
-                                        <Button mnemonicParsing="false" text="Zwolnij" />
+                                        <Button mnemonicParsing="false" text="Naciśnij" fx:id="upCluthButton" onAction="#upCluth" />
+                                        <Button mnemonicParsing="false" text="Zwolnij" fx:id="downCluthButton" onAction="#downCluth"/>
                                     </children>
                                 </HBox>
                             </VBox>

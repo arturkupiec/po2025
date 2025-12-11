@@ -7,17 +7,17 @@ public class Samochod {
     private String model;
     private int predkoscMax;
 
-    private Silnik silnik;
+    public Silnik silnik;
     public SkrzyniaBiegow skrzynia;
-    private Sprzeglo sprzeglo;
-    private Pozycja pozycja;
+    public Sprzeglo sprzeglo;
+    public Pozycja pozycja;
 
-    public Samochod(Silnik silnik, SkrzyniaBiegow skrzynia, Sprzeglo sprzeglo, Pozycja pozycja){
+    public Samochod(Silnik silnik, SkrzyniaBiegow skrzynia, Sprzeglo sprzeglo, Pozycja pozycja, String nrRejestracji){
         this.silnik = silnik;
         this.skrzynia = skrzynia;
         this.sprzeglo = sprzeglo;
         this.pozycja = pozycja;
-
+        this.nrRejestracji = nrRejestracji;
     }
 
     public void wlacz(){
@@ -39,7 +39,8 @@ public class Samochod {
         pozycja.aktualizujPozycje(deltaX, deltaY);
         System.out.println("dojechalimy do " + pozycja.getPozycja());
     }
-
+    public String getNrRejestracji(){return this.nrRejestracji;}
+    public void setNrRejestracji(String nrRejestracji){this.nrRejestracji = nrRejestracji;}
 
 
 }
