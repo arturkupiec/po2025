@@ -6,9 +6,8 @@ public class Main {
     public static void main(String[] args) {
         Silnik silnik = new Silnik(5000, 0, "FSO", "polonez");
         SkrzyniaBiegow skrzynia = new SkrzyniaBiegow("FSO","polonez", 5);
-        Sprzeglo sprzeglo = new Sprzeglo("FSO", "polonez", false);
+        Sprzeglo sprzeglo = new Sprzeglo("FSO", "polonez");
         Pozycja pozycja = new Pozycja(0, 0);
-
         Samochod poldek = new Samochod(silnik, skrzynia, sprzeglo, pozycja, "K1 N1GA");
 
         System.out.println(poldek.getNrRejestracji());

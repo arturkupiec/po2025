@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
+
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.samgui.HelloController">
 
     <top>
@@ -24,8 +25,8 @@
                             <Insets right="5.0" />
                         </padding>
                     </Label>
-                    <ComboBox prefWidth="150.0" />
-                    <Button mnemonicParsing="false" text="Dodaj nowy">
+                    <ComboBox fx:id="carComboBox" prefWidth="150.0" />
+                    <Button mnemonicParsing="false" text="Dodaj nowy" onAction="#onOpenAddCarForm">
                         <HBox.margin>
                             <Insets left="10.0" />
                         </HBox.margin>
@@ -65,11 +66,11 @@
                                         <Label text="Model" GridPane.rowIndex="0"  />
                                         <Label text="Nr rejestracyjny" GridPane.rowIndex="1" />
                                         <Label text="Waga" GridPane.rowIndex="2" />
-                                        <Label text="Prędkość" GridPane.rowIndex="3" />
+                                        <Label text="Prędkość" GridPane.rowIndex="3"/>
                                         <TextField GridPane.columnIndex="1" GridPane.rowIndex="0" fx:id="modelTextField" editable="false"  />
                                         <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id ="nrRejestracjiTextField" editable="fasle" />
-                                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="wagaSamochoduTextFeld" editable="false"/>
+                                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" fx:id="predkoscTextField" editable="false"/>
                                     </children>
                                 </GridPane>
                                 <HBox spacing="10.0">
@@ -202,7 +203,7 @@
     </left>
 
     <center>
-        <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #b0f2a4;" BorderPane.alignment="CENTER">
+        <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #b0f2a4;" BorderPane.alignment="CENTER" onMouseClicked="#onMapClick">
             <children>
                 <Label layoutX="14.0" layoutY="14.0" text="Mapa">
                     <font>
@@ -211,7 +212,7 @@
                 </Label>
                 <ImageView fx:id="carImageView" fitHeight="116.0" fitWidth="151.0" layoutX="24.0" layoutY="31.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@car_icon.jpg" />
+                        <Image url="@../../../car_icon.jpg" />
                     </image>
                <cursor>
                   <Cursor fx:constant="DEFAULT" />
@@ -221,4 +222,8 @@
             </children>
         </AnchorPane>
     </center>
+
+
+
+
 </BorderPane>

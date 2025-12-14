@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.samgui.DodajSamochodController">
+    <center>
+        <VBox spacing="10" alignment="CENTER">
+            <TextField fx:id="modelTextField" promptText="Model" />
+            <TextField fx:id="nrRejestracjiTextField" promptText="Numer rejestracyjny" />
+            <TextField fx:id="wagaTextField" promptText="Waga" />
+            <TextField fx:id="predkoscTextField" promptText="Prędkość maksymalna" />
+
+            <HBox spacing="10" alignment="CENTER">
+                <Button text="Zatwierdź" onAction="#onSubmit" />
+                <Button text="Anuluj" onAction="#onCancel" />
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>

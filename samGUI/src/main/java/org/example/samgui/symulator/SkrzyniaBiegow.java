@@ -5,6 +5,9 @@ public class SkrzyniaBiegow extends Komponent{
     private int iloscBiegow;
     private int aktualnyBieg;
     private int aktualnePrzelozenie;
+    private int[] przelozenia = {0, 10, 8, 6, 4, 2};
+
+
 
     public SkrzyniaBiegow(String producent, String model, int iloscBiegow){
         super(producent, model);
@@ -23,7 +26,7 @@ public class SkrzyniaBiegow extends Komponent{
     public void zwiekszBieg(){
         if (aktualnyBieg < iloscBiegow){
             aktualnyBieg++;
-            aktualnePrzelozenie = 5 - aktualnyBieg;
+            aktualnePrzelozenie = przelozenia[aktualnyBieg];
             System.out.println("teraz jest bieg: " + aktualnyBieg);
         }else {
             System.out.println("nie da sie wyzszego biegu :( ");
@@ -32,15 +35,17 @@ public class SkrzyniaBiegow extends Komponent{
     public void zmniejszBieg(){
         if(aktualnyBieg > 0){
             aktualnyBieg--;
-            aktualnePrzelozenie = 5 - aktualnyBieg;
+            aktualnePrzelozenie = przelozenia[aktualnyBieg];
             System.out.println("teraz jest bieg: " + aktualnyBieg);
         } else {
             System.out.println("nie da sie nizszego biegu :/");
         }
     }
-    public void setAktualnyBieg(int bieg){
-        this.aktualnyBieg = bieg;
-    }
+    public void setAktualnyBieg(int bieg){this.aktualnyBieg = bieg;}
 
     public int getAktualnyBieg(){return this.aktualnyBieg;}
+
+    public int getAktualnePrzelozenie(){return this.aktualnePrzelozenie;}
+
 }
+

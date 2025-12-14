@@ -20,11 +20,11 @@ public class Silnik extends Komponent{
     public void uruchom(){
         this.obroty = 1000;
         System.out.println("teraz mozna elegancko jechac obroty wynosza: " + this.obroty);
-    };
+    }
     public void zatrzymaj(){
         this.obroty = 0;
         System.out.println("silnik elegancko zatrzymany");
-    };
+    }
     public void zwiekszObroty(){
         if (this.obroty < maxObroty){
             this.obroty += 500;
@@ -32,7 +32,7 @@ public class Silnik extends Komponent{
         }else{
             System.out.println("wiecej obrotow nie pojdzie :( ");
         }
-    };
+    }
     public void zmniejszObroty(){
         if (this.obroty > 0){
             this.obroty -= 500;
@@ -40,7 +40,7 @@ public class Silnik extends Komponent{
         } else {
             System.out.println("nie no nie da sie mniej");
         }
-    };
+    }
 
     public int getObroty(){return this.obroty;}
     public void setObroty(int obroty){this.obroty = obroty;}

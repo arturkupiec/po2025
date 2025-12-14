@@ -1,13 +1,20 @@
 package org.example.samgui;
+import javafx.scene.input.MouseEvent;
 import org.example.samgui.symulator.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import org.w3c.dom.Text;
-
+import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
 import javax.swing.*;
+import java.io.IOException;
+import javafx.animation.AnimationTimer;
+import javafx.scene.input.MouseEvent;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.ComboBox;
 
 public class HelloController {
     public Button startButton;
@@ -31,9 +38,21 @@ public class HelloController {
     public Button downCluthButton;
     public Button upSpeed;
     public Button downSpeed;
+    public TextField wagaSamochoduTextFeld;
+    public TextField predkoscTextField;
     @FXML
     private Label welcomeText;
+    @FXML
+    private ImageView carImageView;
 
+    private double targetX;
+    private double targetY;
+
+    private AnimationTimer carTimer;
+
+    @FXML
+    private ComboBox<Samochod> carComboBox;
+    private ObservableList<Samochod> samochody = FXCollections.observableArrayList();
 
     @FXML
     protected void onHelloButtonClick() {
@@ -52,22 +71,21 @@ public class HelloController {
 
     Samochod poldek = new Samochod(silnik, skrzynia, sprzeglo, pozycja, "K1 N1GA");
     @FXML
-    public void initialize(){
-        refresh();
-    }
+
 
     public void upGear(ActionEvent actionEvent) {
-        poldek.skrzynia.zwiekszBieg();
+        poldek.zwiekszBieg();
         refresh();
     }
     public void downGear(ActionEvent actionEvent){
-        poldek.skrzynia.zmniejszBieg();
+        poldek.zmniejszBieg();
         refresh();
     }
     void refresh(){
         // ====================================== sekcja samochod =======================================
         modelTextField.setText(String.valueOf(silnik.getModel()));
         nrRejestracjiTextField.setText(poldek.getNrRejestracji());
+        predkoscTextField.setText(String.valueOf(poldek.obliczPredkosc()));
         // ====================================== sekcja skrzynia =======================================
         nazwaSkrzyniTextField.setText(poldek.skrzynia.getNazwa());
         cenaSkrzyniTextField.setText(String.valueOf(poldek.skrzynia.getCena()));
@@ -83,6 +101,7 @@ public class HelloController {
         cenaSprzeglaTextField.setText(String.valueOf(poldek.sprzeglo.getCena()));
         wagaSprzeglaTextField.setText(String.valueOf(poldek.sprzeglo.getWaga()));
         stanSprzeglaTextField.setText(String.valueOf(poldek.sprzeglo.getStanSprzeglaString()));
+        wagaSamochoduTextFeld.setText(String.valueOf(poldek.getWagaSamochodu()));
     }
 
 
@@ -91,4 +110,94 @@ public class HelloController {
 
     public void upSpeed(ActionEvent actionEvent){poldek.silnik.zwiekszObroty();refresh();}
     public void downSpeed(ActionEvent actionEvent){poldek.silnik.zmniejszObroty();refresh();}
+
+    @FXML //nie ruszac bo nie wiem co tu sie dzieje wczesniej dzialalo bez tego ale teraz tez dziala moze to okresla wymiary i wogle jak to tne nie wiem :OO
+    public void initialize() {
+        refresh();
+        System.out.println("HelloController initialized");
+
+
+        Image carImage = new Image(getClass().getResource("/car_icon.jpg").toExternalForm());
+
+        System.out.println("Image width: " + carImage.getWidth() + ", height: " + carImage.getHeight());
+
+        carImageView.setImage(carImage);
+        carImageView.setFitWidth(200);
+        carImageView.setFitHeight(100);
+        carImageView.setTranslateX(0);
+        carImageView.setTranslateY(0);
+
+        samochody.add(poldek); // ten startowy
+        carComboBox.setItems(samochody);
+
+        carComboBox.setOnAction(e -> {
+            Samochod s = carComboBox.getValue();
+            if (s != null) {
+                poldek = s;
+                refresh();
+            }
+        });
+    }
+
+
+    @FXML
+    public void onOpenAddCarForm(ActionEvent event) {
+        try {
+            HelloApplication app = new HelloApplication();
+            app.openAddCarForm();  // Wywołanie metody otwierającej okno
+        } catch (IOException e) {
+            e.printStackTrace();  // Obsługuje wyjątek IO (np. plik FXML nie zostanie znaleziony)
+        }
+    }
+
+    private void startDriving() {
+
+        if (carTimer != null) {
+            carTimer.stop();
+        }
+
+        carTimer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+
+                double x = carImageView.getTranslateX();
+                double y = carImageView.getTranslateY();
+
+                double dx = targetX - x;
+                double dy = targetY - y;
+
+                double distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < 2) {
+                    stop(); // dojechaliśmy
+                    System.out.println("Dojechano");
+                    return;
+                }
+
+                double speed = (poldek.obliczPredkosc()/10);
+                System.out.println(speed);
+                double stepX = (dx / distance) * speed;
+                double stepY = (dy / distance) * speed;
+
+                carImageView.setTranslateX(x + stepX);
+                carImageView.setTranslateY(y + stepY);
+
+                // aktualizacja logiki pozycji samochodu
+                pozycja.aktualizujPozycje(stepX, stepY);
+            }
+        };
+
+        carTimer.start();
+    }
+
+    @FXML
+    public void onMapClick(MouseEvent event) {
+
+        targetX = event.getX();
+        targetY = event.getY();
+
+        System.out.println("Kliknięto cel: " + targetX + ", " + targetY);
+
+        startDriving();
+    }
 }
