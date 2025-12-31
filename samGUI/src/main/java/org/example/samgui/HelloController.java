@@ -8,13 +8,15 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
-import javax.swing.*;
-import java.io.IOException;
+
+import java.util.Objects;
+
 import javafx.animation.AnimationTimer;
-import javafx.scene.input.MouseEvent;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
+
+
 
 public class HelloController {
     public Button startButton;
@@ -53,23 +55,32 @@ public class HelloController {
     @FXML
     private ComboBox<Samochod> carComboBox;
     private ObservableList<Samochod> samochody = FXCollections.observableArrayList();
+    private ObservableList<Silnik> silniki = FXCollections.observableArrayList();
 
-    @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
+
+    public ObservableList<Silnik> getSilniki() {
+        return silniki;
     }
+
 
     public void onStart(ActionEvent actionEvent) {
         System.out.println("lubudubu");
-        startButton.setText("Stop");
+        poldek.uruchom();
+        refresh();
+        //startButton.setText("Stop");
     }
 
-    Silnik silnik = new Silnik(5000, 0, "FSO", "poldek", 10000, 500, "V8");
+    public void onStop(ActionEvent actionEvent) {
+        poldek.zatrzymaj();
+        refresh();
+    }
+
+    Silnik silnik_poldek = new Silnik(5000, 0, "FSO", "poldek", 10000, 500, "V8");
     SkrzyniaBiegow skrzynia = new SkrzyniaBiegow("FSO","poldek", 5, 3000, 50, "skrzyneczka");
     Sprzeglo sprzeglo = new Sprzeglo("FSO", "poldek", false, 2000, 15, "sprzegielko");
     Pozycja pozycja = new Pozycja(0, 0);
 
-    Samochod poldek = new Samochod(silnik, skrzynia, sprzeglo, pozycja, "K1 N1GA");
+    Samochod poldek = new Samochod(silnik_poldek, skrzynia, sprzeglo, pozycja, "K1 N1GA");
     @FXML
 
 
@@ -83,41 +94,39 @@ public class HelloController {
     }
     void refresh(){
         // ====================================== sekcja samochod =======================================
-        modelTextField.setText(String.valueOf(silnik.getModel()));
+        modelTextField.setText(String.valueOf(silnik_poldek.getModel()));
         nrRejestracjiTextField.setText(poldek.getNrRejestracji());
         predkoscTextField.setText(String.valueOf(poldek.obliczPredkosc()));
         // ====================================== sekcja skrzynia =======================================
-        nazwaSkrzyniTextField.setText(poldek.skrzynia.getNazwa());
-        cenaSkrzyniTextField.setText(String.valueOf(poldek.skrzynia.getCena()));
-        wagaSkrzyniTextField.setText(String.valueOf(poldek.skrzynia.getWaga()));
-        biegTextField.setText(String.valueOf(skrzynia.getAktualnyBieg()));
+        nazwaSkrzyniTextField.setText(poldek.getNazwaSkrzynia());
+        cenaSkrzyniTextField.setText(String.valueOf(poldek.getCenaSkrzynia()));
+        wagaSkrzyniTextField.setText(String.valueOf(poldek.getWagaSkrzynia()));
+        biegTextField.setText(String.valueOf(poldek.getAktualnyBieg()));
         // ===================================== sekcja silnik ==========================================
-        nazwaSilnikaTextField.setText(poldek.silnik.getNazwa());
-        cenaSilnikaTextField.setText(String.valueOf(poldek.silnik.getCena()));
-        wagaSilnikaTextField.setText(String.valueOf(poldek.silnik.getWaga()));
-        obrotySilnikaTextField.setText(String.valueOf(poldek.silnik.getObroty()));
+        nazwaSilnikaTextField.setText(poldek.getNazwaSilnik());
+        cenaSilnikaTextField.setText(String.valueOf(poldek.getCenaSilnik()));
+        wagaSilnikaTextField.setText(String.valueOf(poldek.getWagaSilnik()));
+        obrotySilnikaTextField.setText(String.valueOf(poldek.getAktualneObroty()));
         // ===================================== sekcja sprzegielko ====================================
-        nazwaSprzeglaTextField.setText(poldek.sprzeglo.getNazwa());
-        cenaSprzeglaTextField.setText(String.valueOf(poldek.sprzeglo.getCena()));
-        wagaSprzeglaTextField.setText(String.valueOf(poldek.sprzeglo.getWaga()));
-        stanSprzeglaTextField.setText(String.valueOf(poldek.sprzeglo.getStanSprzeglaString()));
+        nazwaSprzeglaTextField.setText(poldek.getNazwaSprzeglo());
+        cenaSprzeglaTextField.setText(String.valueOf(poldek.getCenaSprzeglo()));
+        wagaSprzeglaTextField.setText(String.valueOf(poldek.getWagaSprzeglo()));
+        stanSprzeglaTextField.setText(String.valueOf(poldek.getStanSprzeglaString()));
         wagaSamochoduTextFeld.setText(String.valueOf(poldek.getWagaSamochodu()));
     }
 
 
-    public void upCluth(ActionEvent actionEvent){poldek.sprzeglo.wcisnij(); refresh();}
-    public void downCluth(ActionEvent actionEvent){poldek.sprzeglo.zwolnij(); refresh();}
+    public void upCluth(ActionEvent actionEvent){poldek.wcisnij(); refresh();}
+    public void downCluth(ActionEvent actionEvent){poldek.zwolnij(); refresh();}
 
-    public void upSpeed(ActionEvent actionEvent){poldek.silnik.zwiekszObroty();refresh();}
-    public void downSpeed(ActionEvent actionEvent){poldek.silnik.zmniejszObroty();refresh();}
+    public void upSpeed(ActionEvent actionEvent){poldek.zwiekszObroty();refresh();}
+    public void downSpeed(ActionEvent actionEvent){poldek.zmniejszObroty();refresh();}
 
     @FXML //nie ruszac bo nie wiem co tu sie dzieje wczesniej dzialalo bez tego ale teraz tez dziala moze to okresla wymiary i wogle jak to tne nie wiem :OO
     public void initialize() {
         refresh();
-        System.out.println("HelloController initialized");
 
-
-        Image carImage = new Image(getClass().getResource("/car_icon.jpg").toExternalForm());
+        Image carImage = new Image(Objects.requireNonNull(getClass().getResource("/car_icon.jpg")).toExternalForm());
 
         System.out.println("Image width: " + carImage.getWidth() + ", height: " + carImage.getHeight());
 
@@ -129,6 +138,10 @@ public class HelloController {
 
         samochody.add(poldek); // ten startowy
         carComboBox.setItems(samochody);
+
+        silniki.add(silnik_poldek);
+
+
 
         carComboBox.setOnAction(e -> {
             Samochod s = carComboBox.getValue();
@@ -144,9 +157,13 @@ public class HelloController {
     public void onOpenAddCarForm(ActionEvent event) {
         try {
             HelloApplication app = new HelloApplication();
+
             app.openAddCarForm();  // Wywołanie metody otwierającej okno
-        } catch (IOException e) {
-            e.printStackTrace();  // Obsługuje wyjątek IO (np. plik FXML nie zostanie znaleziony)
+
+        } catch (Exception e) {
+            //e.printStackTrace();
+            // Obsługuje wyjątek IO (np. plik FXML nie zostanie znaleziony)
+
         }
     }
 
@@ -169,7 +186,7 @@ public class HelloController {
                 double distance = Math.sqrt(dx * dx + dy * dy);
 
                 if (distance < 2) {
-                    stop(); // dojechaliśmy
+                    stop();
                     System.out.println("Dojechano");
                     return;
                 }
@@ -198,6 +215,7 @@ public class HelloController {
 
         System.out.println("Kliknięto cel: " + targetX + ", " + targetY);
 
-        startDriving();
+        //startDriving();
     }
+
 }

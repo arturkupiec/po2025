@@ -25,7 +25,7 @@
                             <Insets right="5.0" />
                         </padding>
                     </Label>
-                    <ComboBox fx:id="carComboBox" prefWidth="150.0" />
+                    <ComboBox fx:id="carComboBox" prefWidth="150.0"/>
                     <Button mnemonicParsing="false" text="Dodaj nowy" onAction="#onOpenAddCarForm">
                         <HBox.margin>
                             <Insets left="10.0" />
@@ -76,7 +76,7 @@
                                 <HBox spacing="10.0">
                                     <children>
                                         <Button fx:id="startButton" mnemonicParsing="false" onAction="#onStart" text="Włącz" />
-                                        <Button mnemonicParsing="false" text="Wyłącz" />
+                                        <Button fx:id='stopBUtton' mnemonicParsing="false" onAction="#onStop" text="Wyłącz" />
                                         <Button mnemonicParsing="false" text="Button" />
                                     </children>
                                 </HBox>

@@ -12,9 +12,9 @@ public class Main {
 
         System.out.println(poldek.getNrRejestracji());
         poldek.wlacz();
-        poldek.skrzynia.zwiekszBieg();
+        poldek.zwiekszBieg();
         poldek.jedzDo(pozycja, new Pozycja(10, 10));
         poldek.wylacz();
-        System.out.println(poldek.skrzynia.getModel());
+        System.out.println(poldek.getModelSkrzynia());
     }
 }

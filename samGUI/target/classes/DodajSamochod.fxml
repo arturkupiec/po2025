@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.samgui.DodajSamochodController">
+<BorderPane prefHeight="256.0" prefWidth="416.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.samgui.DodajSamochodController">
     <center>
-        <VBox spacing="10" alignment="CENTER">
-            <TextField fx:id="modelTextField" promptText="Model" />
+        <VBox alignment="CENTER" prefHeight="323.0" prefWidth="150.0" spacing="10">
+            <TextField fx:id="modelTextField" prefHeight="28.0" prefWidth="416.0" promptText="Model" />
             <TextField fx:id="nrRejestracjiTextField" promptText="Numer rejestracyjny" />
             <TextField fx:id="wagaTextField" promptText="Waga" />
             <TextField fx:id="predkoscTextField" promptText="Prędkość maksymalna" />
+         <ComboBox fx:id="wybierzSilnikComboBox" prefWidth="150.0" promptText="Dostępne silniki:" />
+         <ComboBox fx:id="wybierzSkrznieComboBox" prefWidth="150.0" promptText="Dostępne skrzynie biegów:" />
 
-            <HBox spacing="10" alignment="CENTER">
-                <Button text="Zatwierdź" onAction="#onSubmit" />
-                <Button text="Anuluj" onAction="#onCancel" />
+            <HBox alignment="CENTER" spacing="10">
+                <Button fx:id="zatwierdzButton" onAction="#onSubmit" text="Zatwierdź" />
+                <Button fx:id="anulujButton" onAction="#onCancel" text="Anuluj" />
             </HBox>
         </VBox>
     </center>

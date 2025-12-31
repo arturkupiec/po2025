@@ -1,71 +1,154 @@
 package org.example.samgui.symulator;
 
-import java.sql.SQLOutput;
+public class Samochod extends Thread {
 
-public class Samochod {
 
-    private boolean stanWlaczenia;
-    private String nrRejestracji;
-    private String model;
-    private int predkoscMax;
-    private int aktualnaPredkosc;
+        private boolean stanWlaczenia;
+        private String nrRejestracji;
+        private String model;
+        private int predkoscMax;
+        private int aktualnaPredkosc;
 
-    public Silnik silnik;
-    public SkrzyniaBiegow skrzynia;
-    public Sprzeglo sprzeglo;
-    public Pozycja pozycja;
+        private Silnik silnik;
+        private SkrzyniaBiegow skrzynia;
+        private Sprzeglo sprzeglo;
+        private Pozycja pozycja;
 
-    public Samochod(Silnik silnik, SkrzyniaBiegow skrzynia, Sprzeglo sprzeglo, Pozycja pozycja, String nrRejestracji){
-        this.silnik = silnik;
-        this.skrzynia = skrzynia;
-        this.sprzeglo = sprzeglo;
-        this.pozycja = pozycja;
-        this.nrRejestracji = nrRejestracji;
-    }
+    public Samochod(Silnik silnik, SkrzyniaBiegow skrzynia, Sprzeglo sprzeglo, Pozycja pozycja, String nrRejestracji) {
+            this.silnik = silnik;
+            this.skrzynia = skrzynia;
+            this.sprzeglo = sprzeglo;
+            this.pozycja = pozycja;
+            this.nrRejestracji = nrRejestracji;
+        }
 
-    public void wlacz(){
-        silnik.uruchom();
-        stanWlaczenia = true;
-        System.out.println("LODPALILL");
-    }
-    public void wylacz(){
-        silnik.zatrzymaj();
-        skrzynia.setAktualnyBieg(0);
-        stanWlaczenia = false;
-        System.out.println("samochod zgasl ");
-    }
+        public void wlacz () {
+            silnik.uruchom();
+            stanWlaczenia = true;
+            System.out.println("LODPALILL");
+        }
+        public void wylacz () {
+            silnik.zatrzymaj();
+            skrzynia.setAktualnyBieg(0);
+            stanWlaczenia = false;
+            System.out.println("samochod zgasl ");
+        }
 
-    public void jedzDo(Pozycja pozycja, Pozycja cel){
-        double deltaX = cel.getX() - pozycja.getX();
-        double deltaY = cel.getY() - pozycja.getY();
+        public void jedzDo (Pozycja pozycja, Pozycja cel){
+            double deltaX = cel.getX() - pozycja.getX();
+            double deltaY = cel.getY() - pozycja.getY();
 
-        pozycja.aktualizujPozycje(deltaX, deltaY);
-        System.out.println("dojechalimy do " + pozycja.getPozycja());
-    }
-    public String getNrRejestracji(){return this.nrRejestracji;}
-    public void setNrRejestracji(String nrRejestracji){this.nrRejestracji = nrRejestracji;}
+            pozycja.aktualizujPozycje(deltaX, deltaY);
+            System.out.println("dojechalimy do " + pozycja.getPozycja());
+        }
+        public String getNrRejestracji () {
+            return this.nrRejestracji;
+        }
+        public void setNrRejestracji (String nrRejestracji){
+            this.nrRejestracji = nrRejestracji;
+        }
 
-    public int getWagaSamochodu(){
-        return this.silnik.getWaga() + this.skrzynia.getWaga() + this.sprzeglo.getWaga();
-    }
-    public void zwiekszBieg(){
-        if (this.sprzeglo.getStanSprzegla()){
-            this.skrzynia.zwiekszBieg();
+        public int getWagaSamochodu () {
+            return this.silnik.getWaga() + this.skrzynia.getWaga() + this.sprzeglo.getWaga();
+        }
+        public void zwiekszBieg () {
+            if (this.sprzeglo.getStanSprzegla()) {
+                this.skrzynia.zwiekszBieg();
+            }
+        }
+        public void zmniejszBieg () {
+            if (this.sprzeglo.getStanSprzegla()) {
+                this.skrzynia.zmniejszBieg();
+            }
+        }
+
+        public int obliczPredkosc () {
+            int predkosc = (silnik.getObroty() / 100) * skrzynia.getAktualnePrzelozenie();
+            return predkosc;
+        }
+
+        @Override
+        public String toString () {
+            return model + " (" + nrRejestracji + ")";
+        }
+        //====================== gettery do nazw komponentow bo OOP i musi byc w samochodzie bo controler ma dostep TYLKO do samochodu :D :D
+
+        public String getNazwaSprzeglo () {
+            return this.sprzeglo.getNazwa();
+        }
+        public String getNazwaSilnik () {
+            return this.silnik.getNazwa();
+        }
+        public String getNazwaSkrzynia () {
+            return this.skrzynia.getNazwa();
+        }
+
+        //==================== gettery do cen ==================================
+        public int getCenaSprzeglo () {
+            return this.sprzeglo.getCena();
+        }
+        public int getCenaSilnik () {
+            return this.silnik.getCena();
+        }
+        public int getCenaSkrzynia () {
+            return this.skrzynia.getCena();
+        }
+
+        //==================== gettery do wag ====================================
+
+        public int getWagaSprzeglo () {
+            return this.sprzeglo.getWaga();
+        }
+        public int getWagaSilnik () {
+            return this.silnik.getWaga();
+        }
+        public int getWagaSkrzynia () {
+            return this.skrzynia.getWaga();
+        }
+
+        //=============== getter do biegu, obrotow, przelozenia, stanu sprzegla
+        public int getAktualnyBieg () {
+            return this.skrzynia.getAktualnyBieg();
+        }
+        public int getAktualneObroty () {
+            return this.silnik.getObroty();
+        }
+        public int getAktualnePrzelozenie () {
+            return this.skrzynia.getAktualnePrzelozenie();
+        }
+        public boolean getAktualnyStanSprzegla () {
+            return this.sprzeglo.getStanSprzegla();
+        }
+        public String getStanSprzeglaString () {
+            return this.sprzeglo.getStanSprzeglaString();
+        }
+        //============ zmiana stanu sprzegla
+        public void wcisnij () {
+            this.sprzeglo.wcisnij();
+        }
+        public void zwolnij () {
+            this.sprzeglo.zwolnij();
+        }
+        public void zwiekszObroty () {
+            this.silnik.zwiekszObroty();
+        }
+        public void zmniejszObroty () {
+            this.silnik.zmniejszObroty();
+        }
+        //=========== gettery do modelu (na zapas zeby wszystko hulalo)============
+        public String getModelSprzeglo () {
+            return this.sprzeglo.getModel();
+        }
+        public String getModelSilnik () {
+            return this.silnik.getModel();
+        }
+        public String getModelSkrzynia () {
+            return this.skrzynia.getModel();
+        }
+        public void uruchom () {
+            this.silnik.uruchom();
+        }
+        public void zatrzymaj () {
+            this.silnik.zatrzymaj();
         }
     }
-    public void zmniejszBieg(){
-        if(this.sprzeglo.getStanSprzegla()){
-            this.skrzynia.zmniejszBieg();
-        }
-    }
-
-    public int obliczPredkosc() {
-        int predkosc = (silnik.getObroty() / 100) * skrzynia.getAktualnePrzelozenie();
-        return predkosc;
-    }
-
-    @Override
-    public String toString() {
-        return model + " (" + nrRejestracji + ")";
-    }
-}
