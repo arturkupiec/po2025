@@ -10,9 +10,9 @@ import java.io.IOException;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("SamochodGUI.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1300, 700);
-        stage.setTitle("need for speed - choroszcz edition");
+        stage.setTitle("need for speed (choroszcz edition)");
         stage.setScene(scene);
         stage.show();
     }

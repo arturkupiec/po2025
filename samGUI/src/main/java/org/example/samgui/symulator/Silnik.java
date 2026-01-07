@@ -45,5 +45,6 @@ public class Silnik extends Komponent{
     public int getObroty(){return this.obroty;}
     public void setObroty(int obroty){this.obroty = obroty;}
 
+    public String toString(){return this.getNazwa();}
 
 }

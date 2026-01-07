@@ -19,9 +19,7 @@ public class SkrzyniaBiegow extends Komponent{
         super(producent, model, cena, waga, nazwa);
         this.iloscBiegow = iloscBiegow;
         this.aktualnyBieg = 0;
-        this.aktualnePrzelozenie = 0;
     }
-
 
     public void zwiekszBieg(){
         if (aktualnyBieg < iloscBiegow){
@@ -46,6 +44,6 @@ public class SkrzyniaBiegow extends Komponent{
     public int getAktualnyBieg(){return this.aktualnyBieg;}
 
     public int getAktualnePrzelozenie(){return this.aktualnePrzelozenie;}
-
+    public String toString(){return getNazwa();}
 }
 

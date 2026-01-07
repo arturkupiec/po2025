@@ -3,6 +3,7 @@ package org.example.samgui.symulator;
 public class Sprzeglo extends Komponent{
 
     private boolean stanSprzegla;
+    private String standardowaNazwa = "default_sprzeglo";
 
 
     public Sprzeglo(String producent, String model) {
@@ -13,6 +14,7 @@ public class Sprzeglo extends Komponent{
     public Sprzeglo(String producent, String model, boolean stanSprzegla, int cena, int waga, String nazwa) {
         super(producent, model, cena, waga, nazwa);
         this.stanSprzegla = false;
+
     }
 
     public void wcisnij(){

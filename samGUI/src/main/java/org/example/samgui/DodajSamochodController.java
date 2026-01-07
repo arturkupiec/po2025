@@ -8,14 +8,16 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.example.samgui.symulator.Silnik;
+import org.example.samgui.symulator.*;
+
+import java.sql.SQLOutput;
 
 public class DodajSamochodController {
 
     public Button anulujButton;
     public Button zatwierdzButton;
     public ComboBox wybierzSilnikComboBox;
-    public ComboBox wybierzSkrznieComboBox;
+    public ComboBox wybierzSkrzynieComboBox;
     @FXML
     private TextField modelTextField;
     @FXML
@@ -25,6 +27,8 @@ public class DodajSamochodController {
     @FXML
     private TextField predkoscTextField;
     private ObservableList<Silnik> silniki;
+    private ObservableList<SkrzyniaBiegow> skrzynie;
+    private ObservableList<Samochod> samochody;
     @FXML
 
     String model;
@@ -43,24 +47,46 @@ public class DodajSamochodController {
             System.out.println("Nr rejestracyjny: " + nrRejestracji);
             System.out.println("Waga: " + waga);
             System.out.println("Prędkość maksymalna: " + predkosc);
-            System.out.println("udalo sie ;D" );
+
+            Sprzeglo sprzeglo = new Sprzeglo("default_producent", "default_model", false, 999999, 999999, "standardowe sprzeglo");
+            Pozycja pozycja = new Pozycja(0, 0);
+            Silnik wybranySilnik = (Silnik) wybierzSilnikComboBox.getValue();
+            if (wybranySilnik == null){
+                System.out.println("auto bez silnika ty madry ty jestes?? od nowa rob");
+                return;
+            }
+            SkrzyniaBiegow wybranaSkrzynia = (SkrzyniaBiegow) wybierzSkrzynieComboBox.getValue();
+            if (wybranaSkrzynia == null){
+                System.out.println("auto bez skrzyni ty madry ty jestes?? rob od nowa");
+                return;
+            }
+            Samochod nowySamochod = new Samochod(model, predkosc, waga, nrRejestracji, wybranySilnik, wybranaSkrzynia, pozycja, sprzeglo);
+            Samochod_GUI_Controller.samochody.add(nowySamochod);
+            System.out.println(samochody);
+            Stage stage = (Stage) zatwierdzButton.getScene().getWindow();
+            stage.close();
         }
         catch (NumberFormatException e){
             System.out.println("model i nr rejestracyjny - ciag znakow, waga i predkosc maksymalna - liczba calkowita");
             return;
         }
-        /*HelloController.samochody.add(model, nrRejestracji, waga, predkosc);
-        Stage stage = (Stage) zatwierdzButton.getScene().getWindow();
-        stage.close();
-        */
+
 
     }
     public void setSilniki(ObservableList<Silnik> silniki) {
         this.silniki = silniki;
         wybierzSilnikComboBox.setItems(silniki);
+
+    }
+    public void setSkrzynie(ObservableList<SkrzyniaBiegow> skrzynie){
+        this.skrzynie = skrzynie;
+        wybierzSkrzynieComboBox.setItems(skrzynie);
     }
 
-    @FXML   //dlaczego zamykanie okna musi byc takie trudne :O :O
+
+
+
+    @FXML
     public void onCancel(ActionEvent actionEvent) {
         System.out.println("Formularz anulowany");
         Stage stage = (Stage) anulujButton.getScene().getWindow();

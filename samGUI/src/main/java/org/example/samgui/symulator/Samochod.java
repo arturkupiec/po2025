@@ -1,6 +1,10 @@
 package org.example.samgui.symulator;
 
-public class Samochod extends Thread {
+import java.util.ArrayList;
+import java.util.List;
+import org.example.samgui.Listener;
+
+public class Samochod extends Thread{
 
 
         private boolean stanWlaczenia;
@@ -8,11 +12,26 @@ public class Samochod extends Thread {
         private String model;
         private int predkoscMax;
         private int aktualnaPredkosc;
-
+        private int waga;
         private Silnik silnik;
         private SkrzyniaBiegow skrzynia;
         private Sprzeglo sprzeglo;
         private Pozycja pozycja;
+        private Pozycja cel;
+        private List<Listener> listeners = new ArrayList<>();
+
+
+    public void addListener(Listener listener) {
+        listeners.add(listener);
+    }
+    public void removeListener(Listener listener) {
+        listeners.remove(listener);
+    }
+    private void notifyListeners() {
+        for (Listener listener : listeners) {
+            listener.update();
+        }
+    }
 
     public Samochod(Silnik silnik, SkrzyniaBiegow skrzynia, Sprzeglo sprzeglo, Pozycja pozycja, String nrRejestracji) {
             this.silnik = silnik;
@@ -21,7 +40,17 @@ public class Samochod extends Thread {
             this.pozycja = pozycja;
             this.nrRejestracji = nrRejestracji;
         }
-
+    //konstruktor do tworzenia samochodu przy funkcji dodajSamochod (pomijamy duzo rzeczy, silnik i skrzynia maja byc wybrame z istniejacej listy :D
+    public Samochod(String model, int predkoscMax, int waga, String nrRejestracji, Silnik silnik, SkrzyniaBiegow skrzynia, Pozycja pozycja, Sprzeglo sprzeglo){
+        this.model = model;
+        this.predkoscMax = predkoscMax;
+        this.waga = waga;
+        this.nrRejestracji = nrRejestracji;
+        this.silnik = silnik;
+        this.skrzynia = skrzynia;
+        this.sprzeglo = sprzeglo;
+        this.pozycja = pozycja;
+    }
         public void wlacz () {
             silnik.uruchom();
             stanWlaczenia = true;
@@ -34,12 +63,12 @@ public class Samochod extends Thread {
             System.out.println("samochod zgasl ");
         }
 
-        public void jedzDo (Pozycja pozycja, Pozycja cel){
+        public void jedzDo (Pozycja cel){
             double deltaX = cel.getX() - pozycja.getX();
             double deltaY = cel.getY() - pozycja.getY();
 
             pozycja.aktualizujPozycje(deltaX, deltaY);
-            System.out.println("dojechalimy do " + pozycja.getPozycja());
+            System.out.println("dojechalimy do " + pozycja.getPozycja() + "a jedziemy autkiem rejestracja: " + this.nrRejestracji);
         }
         public String getNrRejestracji () {
             return this.nrRejestracji;
@@ -151,4 +180,26 @@ public class Samochod extends Thread {
         public void zatrzymaj () {
             this.silnik.zatrzymaj();
         }
-    }
+
+        //public String toString(){return this.silnik.getModel();}
+        public double getX(){return this.pozycja.getX();}
+        public double getY(){return this.pozycja.getY();}
+
+        public void run() {
+            double deltat = 0.1;
+            while (true) {
+                if (cel != null) {
+                    double odleglosc = Math.sqrt(Math.pow(cel.getX() - pozycja.getX(), 2) +
+                            Math.pow(cel.getY() - pozycja.getY(), 2));
+                    double dx = obliczPredkosc() * deltat * (cel.getX() - pozycja.getX()) /
+                            odleglosc;
+                    double dy = obliczPredkosc() * deltat * (cel.getY() - pozycja.getY()) /
+                            odleglosc;
+                }
+            }
+        }
+
+
+}
+
+

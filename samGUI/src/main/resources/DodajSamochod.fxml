@@ -11,7 +11,7 @@
             <TextField fx:id="wagaTextField" promptText="Waga" />
             <TextField fx:id="predkoscTextField" promptText="Prędkość maksymalna" />
          <ComboBox fx:id="wybierzSilnikComboBox" prefWidth="150.0" promptText="Dostępne silniki:" />
-         <ComboBox fx:id="wybierzSkrznieComboBox" prefWidth="150.0" promptText="Dostępne skrzynie biegów:" />
+         <ComboBox fx:id="wybierzSkrzynieComboBox" prefWidth="150.0" promptText="Dostępne skrzynie biegów:" />
 
             <HBox alignment="CENTER" spacing="10">
                 <Button fx:id="zatwierdzButton" onAction="#onSubmit" text="Zatwierdź" />

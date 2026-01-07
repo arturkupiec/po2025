@@ -25,5 +25,9 @@ public class Osoba {
         System.out.println(message+","+x);
     }
 
+    void sumNoObserver(int a, int b){
+        System.out.println(a+b);
+    }
+
     }
 

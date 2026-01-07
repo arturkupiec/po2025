@@ -13,7 +13,7 @@ public class Main {
         System.out.println(poldek.getNrRejestracji());
         poldek.wlacz();
         poldek.zwiekszBieg();
-        poldek.jedzDo(pozycja, new Pozycja(10, 10));
+        poldek.jedzDo(new Pozycja(10, 10));
         poldek.wylacz();
         System.out.println(poldek.getModelSkrzynia());
     }

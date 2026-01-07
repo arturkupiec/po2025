@@ -59,7 +59,8 @@ public class Main {
         }
 
         dominik.porownajZ10();
+    }   
 
 
-    }
+
 }
