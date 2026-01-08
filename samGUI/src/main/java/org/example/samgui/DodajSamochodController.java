@@ -9,7 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.example.samgui.symulator.*;
-
+import org.example.samgui.Listener;
 import java.sql.SQLOutput;
 
 public class DodajSamochodController {
@@ -56,6 +56,7 @@ public class DodajSamochodController {
                 return;
             }
             SkrzyniaBiegow wybranaSkrzynia = (SkrzyniaBiegow) wybierzSkrzynieComboBox.getValue();
+
             if (wybranaSkrzynia == null){
                 System.out.println("auto bez skrzyni ty madry ty jestes?? rob od nowa");
                 return;

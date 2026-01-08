@@ -14,6 +14,11 @@ public class Pozycja {
         this.y += d_y;
     }
 
+    public void ustawPozycje(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
+
     public String getPozycja(){
         return "x: " +  this.x + " y: " + this.y;
     }

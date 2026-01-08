@@ -45,5 +45,8 @@ public class SkrzyniaBiegow extends Komponent{
 
     public int getAktualnePrzelozenie(){return this.aktualnePrzelozenie;}
     public String toString(){return getNazwa();}
+
+
+
 }
 

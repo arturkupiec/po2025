@@ -39,6 +39,7 @@ public class Samochod extends Thread{
             this.sprzeglo = sprzeglo;
             this.pozycja = pozycja;
             this.nrRejestracji = nrRejestracji;
+            start();
         }
     //konstruktor do tworzenia samochodu przy funkcji dodajSamochod (pomijamy duzo rzeczy, silnik i skrzynia maja byc wybrame z istniejacej listy :D
     public Samochod(String model, int predkoscMax, int waga, String nrRejestracji, Silnik silnik, SkrzyniaBiegow skrzynia, Pozycja pozycja, Sprzeglo sprzeglo){
@@ -50,44 +51,41 @@ public class Samochod extends Thread{
         this.skrzynia = skrzynia;
         this.sprzeglo = sprzeglo;
         this.pozycja = pozycja;
+        start();
     }
         public void wlacz () {
             silnik.uruchom();
             stanWlaczenia = true;
             System.out.println("LODPALILL");
+            notifyListeners();
         }
         public void wylacz () {
             silnik.zatrzymaj();
             skrzynia.setAktualnyBieg(0);
             stanWlaczenia = false;
             System.out.println("samochod zgasl ");
+            notifyListeners();
         }
 
         public void jedzDo (Pozycja cel){
-            double deltaX = cel.getX() - pozycja.getX();
-            double deltaY = cel.getY() - pozycja.getY();
-
-            pozycja.aktualizujPozycje(deltaX, deltaY);
-            System.out.println("dojechalimy do " + pozycja.getPozycja() + "a jedziemy autkiem rejestracja: " + this.nrRejestracji);
-        }
+            this.cel = cel;}
         public String getNrRejestracji () {
             return this.nrRejestracji;
         }
-        public void setNrRejestracji (String nrRejestracji){
-            this.nrRejestracji = nrRejestracji;
-        }
 
-        public int getWagaSamochodu () {
+    public int getWagaSamochodu () {
             return this.silnik.getWaga() + this.skrzynia.getWaga() + this.sprzeglo.getWaga();
         }
         public void zwiekszBieg () {
             if (this.sprzeglo.getStanSprzegla()) {
                 this.skrzynia.zwiekszBieg();
+                notifyListeners();
             }
         }
         public void zmniejszBieg () {
             if (this.sprzeglo.getStanSprzegla()) {
                 this.skrzynia.zmniejszBieg();
+                notifyListeners();
             }
         }
 
@@ -154,20 +152,23 @@ public class Samochod extends Thread{
         //============ zmiana stanu sprzegla
         public void wcisnij () {
             this.sprzeglo.wcisnij();
+            notifyListeners();
         }
         public void zwolnij () {
             this.sprzeglo.zwolnij();
+            notifyListeners();
         }
         public void zwiekszObroty () {
             this.silnik.zwiekszObroty();
+            notifyListeners();
         }
         public void zmniejszObroty () {
             this.silnik.zmniejszObroty();
+            notifyListeners();
         }
         //=========== gettery do modelu (na zapas zeby wszystko hulalo)============
         public String getModelSprzeglo () {
-            return this.sprzeglo.getModel();
-        }
+            return this.sprzeglo.getModel();}
         public String getModelSilnik () {
             return this.silnik.getModel();
         }
@@ -176,28 +177,48 @@ public class Samochod extends Thread{
         }
         public void uruchom () {
             this.silnik.uruchom();
+            notifyListeners();
         }
         public void zatrzymaj () {
             this.silnik.zatrzymaj();
+            notifyListeners();
         }
 
         //public String toString(){return this.silnik.getModel();}
         public double getX(){return this.pozycja.getX();}
         public double getY(){return this.pozycja.getY();}
 
-        public void run() {
-            double deltat = 0.1;
-            while (true) {
-                if (cel != null) {
-                    double odleglosc = Math.sqrt(Math.pow(cel.getX() - pozycja.getX(), 2) +
-                            Math.pow(cel.getY() - pozycja.getY(), 2));
-                    double dx = obliczPredkosc() * deltat * (cel.getX() - pozycja.getX()) /
-                            odleglosc;
-                    double dy = obliczPredkosc() * deltat * (cel.getY() - pozycja.getY()) /
-                            odleglosc;
+    public void run() {
+        double deltat = 0.1;
+        double epsilon = 0.5;
+
+        while (true) {
+            if (cel != null) {
+                double dx = cel.getX() - pozycja.getX();
+                double dy = cel.getY() - pozycja.getY();
+                double dist = Math.sqrt(dx*dx + dy*dy);
+
+                if (dist < epsilon) {
+                    pozycja.ustawPozycje(cel.getX(), cel.getY());
+                    cel = null;
+                    notifyListeners();
+                    continue;
                 }
+
+                double step = obliczPredkosc() * deltat;
+                if (step > dist) step = dist;
+
+                pozycja.aktualizujPozycje(dx / dist * step, dy / dist * step);
+                notifyListeners();
+            }
+
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                break;
             }
         }
+    }
 
 
 }

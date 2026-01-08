@@ -21,7 +21,8 @@ import javafx.collections.ObservableList;
 public class Samochod_GUI_Controller implements Listener{
     @Override
     public void update(){
-        refresh();
+        //refresh();
+        Platform.runLater(this::refresh);
     }
     public Button startButton;
     public Button upGearButton;
@@ -74,13 +75,10 @@ public class Samochod_GUI_Controller implements Listener{
     public void onStart(ActionEvent actionEvent) {
         System.out.println("lubudubu");
         samochod.uruchom();
-        refresh();
-        //startButton.setText("Stop");
     }
 
     public void onStop(ActionEvent actionEvent) {
         samochod.zatrzymaj();
-        refresh();
     }
     //public SkrzyniaBiegow(String producent, String model, int iloscBiegow, int cena, int waga, String nazwa){
     //==================================tworzenie podstawowego auta============================================
@@ -93,15 +91,11 @@ public class Samochod_GUI_Controller implements Listener{
 
 
     @FXML
-
-
     public void upGear(ActionEvent actionEvent) {
         samochod.zwiekszBieg();
-        refresh();
     }
     public void downGear(ActionEvent actionEvent){
         samochod.zmniejszBieg();
-        refresh();
     }
     void refresh(){
         // ====================================== sekcja samochod =======================================
@@ -133,17 +127,18 @@ public class Samochod_GUI_Controller implements Listener{
     }
 
 
-    public void upCluth(ActionEvent actionEvent){samochod.wcisnij(); refresh();}
-    public void downCluth(ActionEvent actionEvent){samochod.zwolnij(); refresh();}
+    public void upCluth(ActionEvent actionEvent){samochod.wcisnij();}
+    public void downCluth(ActionEvent actionEvent){samochod.zwolnij();}
 
-    public void upSpeed(ActionEvent actionEvent){samochod.zwiekszObroty();refresh();}
-    public void downSpeed(ActionEvent actionEvent){samochod.zmniejszObroty();refresh();}
+    public void upSpeed(ActionEvent actionEvent){samochod.zwiekszObroty();}
+    public void downSpeed(ActionEvent actionEvent){samochod.zmniejszObroty();}
 
     @FXML
     public void initialize() {
 
         samochody.add(poldek);
         samochod = poldek;
+        samochod.addListener(this);
         carComboBox.setItems(samochody);
         carComboBox.getSelectionModel().select(poldek);
         refresh();
@@ -151,6 +146,7 @@ public class Samochod_GUI_Controller implements Listener{
 
         carComboBox.setOnAction(e -> {
             samochod = carComboBox.getValue();
+            samochod.addListener(this);
             refresh();
         });
 
@@ -184,7 +180,9 @@ public class Samochod_GUI_Controller implements Listener{
             double y = event.getY();
             Pozycja nowaPozycja = new Pozycja(x, y);
             samochod.jedzDo(nowaPozycja);
-            refresh();
+
+
+
         });
 
 
