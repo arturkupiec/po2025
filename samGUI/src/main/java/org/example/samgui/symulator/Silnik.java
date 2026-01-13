@@ -5,6 +5,7 @@ public class Silnik extends Komponent{
     private int maxObroty;
     private int obroty;
 
+
     public Silnik(int maxObroty, int obroty, String producent, String model){
         super(producent, model);
         this.maxObroty = maxObroty;
@@ -46,5 +47,10 @@ public class Silnik extends Komponent{
     public void setObroty(int obroty){this.obroty = obroty;}
 
     public String toString(){return this.getNazwa();}
-
+    //public Silnik(int maxObroty, int obroty, String producent, String model, int cena, int waga, String nazwa)
+    public Silnik(Silnik inny){
+        super(inny);
+        this.obroty = 0;
+        this.maxObroty = inny.maxObroty;
+    }
 }

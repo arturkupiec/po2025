@@ -159,12 +159,20 @@ public class Samochod extends Thread{
             notifyListeners();
         }
         public void zwiekszObroty () {
-            this.silnik.zwiekszObroty();
-            notifyListeners();
+            if(sprzeglo.getStanSprzegla() == false) {
+                this.silnik.zwiekszObroty();
+                notifyListeners();
+            }else{
+                System.out.println("na sprzegle gazu??");
+            }
         }
         public void zmniejszObroty () {
-            this.silnik.zmniejszObroty();
-            notifyListeners();
+            if(sprzeglo.getStanSprzegla() == false) {
+                this.silnik.zmniejszObroty();
+                notifyListeners();
+            }else{
+                System.out.println("na sprzegle gazu??");
+            }
         }
         //=========== gettery do modelu (na zapas zeby wszystko hulalo)============
         public String getModelSprzeglo () {
@@ -189,7 +197,7 @@ public class Samochod extends Thread{
         public double getY(){return this.pozycja.getY();}
 
     public void run() {
-        double deltat = 0.1;
+        double deltat = 0.01;
         double epsilon = 0.5;
 
         while (true) {

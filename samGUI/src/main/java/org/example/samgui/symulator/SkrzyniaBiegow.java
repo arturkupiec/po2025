@@ -5,7 +5,7 @@ public class SkrzyniaBiegow extends Komponent{
     private int iloscBiegow;
     private int aktualnyBieg;
     private int aktualnePrzelozenie;
-    private int[] przelozenia = {0, 10, 8, 6, 4, 2};
+    private final int[] przelozenia = {0, 10, 8, 6, 4, 2};
 
 
 
@@ -21,6 +21,12 @@ public class SkrzyniaBiegow extends Komponent{
         this.aktualnyBieg = 0;
     }
 
+    public SkrzyniaBiegow(SkrzyniaBiegow skrzynia){
+        super(skrzynia);
+        this.aktualnyBieg = 0;
+        this.iloscBiegow = skrzynia.iloscBiegow;
+        this.aktualnePrzelozenie = skrzynia.aktualnePrzelozenie;
+    }
     public void zwiekszBieg(){
         if (aktualnyBieg < iloscBiegow){
             aktualnyBieg++;

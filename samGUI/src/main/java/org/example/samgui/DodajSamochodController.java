@@ -12,6 +12,8 @@ import org.example.samgui.symulator.*;
 import org.example.samgui.Listener;
 import java.sql.SQLOutput;
 
+import static java.util.Collections.copy;
+
 public class DodajSamochodController {
 
     public Button anulujButton;
@@ -51,17 +53,19 @@ public class DodajSamochodController {
             Sprzeglo sprzeglo = new Sprzeglo("default_producent", "default_model", false, 999999, 999999, "standardowe sprzeglo");
             Pozycja pozycja = new Pozycja(0, 0);
             Silnik wybranySilnik = (Silnik) wybierzSilnikComboBox.getValue();
-            if (wybranySilnik == null){
+            Silnik uzywanysilnik = new Silnik(wybranySilnik);
+
+            if (uzywanysilnik == null){
                 System.out.println("auto bez silnika ty madry ty jestes?? od nowa rob");
                 return;
             }
             SkrzyniaBiegow wybranaSkrzynia = (SkrzyniaBiegow) wybierzSkrzynieComboBox.getValue();
-
+            SkrzyniaBiegow uzywanaSkrzynia = new SkrzyniaBiegow((wybranaSkrzynia));
             if (wybranaSkrzynia == null){
                 System.out.println("auto bez skrzyni ty madry ty jestes?? rob od nowa");
                 return;
             }
-            Samochod nowySamochod = new Samochod(model, predkosc, waga, nrRejestracji, wybranySilnik, wybranaSkrzynia, pozycja, sprzeglo);
+            Samochod nowySamochod = new Samochod(model, predkosc, waga, nrRejestracji, uzywanysilnik, uzywanaSkrzynia, pozycja, sprzeglo);
             Samochod_GUI_Controller.samochody.add(nowySamochod);
             System.out.println(samochody);
             Stage stage = (Stage) zatwierdzButton.getScene().getWindow();

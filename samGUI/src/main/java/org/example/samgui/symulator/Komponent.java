@@ -32,5 +32,15 @@ public abstract class Komponent {
     public int getWaga(){return this.waga;}
     public void setWaga(int waga){this.waga = waga;}
 
+    public Komponent(Komponent inny){
+        this.producent = inny.producent;
+        this.waga = inny.waga;
+        this.model = inny.model;
+        this.cena = inny.cena;
+        this.nazwa = inny.nazwa;
+
+    }
+
+
 
 }

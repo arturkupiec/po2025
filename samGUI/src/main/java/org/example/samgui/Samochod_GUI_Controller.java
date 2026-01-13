@@ -144,6 +144,7 @@ public class Samochod_GUI_Controller implements Listener{
         refresh();
 
 
+
         carComboBox.setOnAction(e -> {
             samochod = carComboBox.getValue();
             samochod.addListener(this);
@@ -212,6 +213,10 @@ public class Samochod_GUI_Controller implements Listener{
 
 
         public void onUsunSamochod(ActionEvent actionEvent) {
+            if (samochod==poldek){
+                System.out.println("podlka nie usuniesz chocby nie wiem co >:C ");
+                return;
+            }
             samochody.remove(samochod);
             carComboBox.getSelectionModel().selectFirst();
         }
