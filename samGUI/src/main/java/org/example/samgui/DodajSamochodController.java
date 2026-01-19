@@ -50,7 +50,7 @@ public class DodajSamochodController {
             System.out.println("Waga: " + waga);
             System.out.println("Prędkość maksymalna: " + predkosc);
 
-            Sprzeglo sprzeglo = new Sprzeglo("default_producent", "default_model", false, 999999, 999999, "standardowe sprzeglo");
+            Sprzeglo sprzeglo = new Sprzeglo("default_producent", "default_model", false, 999999, 20, "standardowe sprzeglo");
             Pozycja pozycja = new Pozycja(0, 0);
             Silnik wybranySilnik = (Silnik) wybierzSilnikComboBox.getValue();
             Silnik uzywanysilnik = new Silnik(wybranySilnik);
